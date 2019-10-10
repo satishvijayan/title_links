@@ -108,7 +108,7 @@ def search_widget(doctype, txt, query=None, searchfield=None, start=0,
 
             if title_field:
                 fields.insert(0, "name")
-                fields.append("{} as `title`".format(frappe.db.escape(title_field)))
+                fields.append("{0} as `title`".format(frappe.db.escape(title_field)))
             else:
                 fields.append("NULL as `title`")
 

@@ -142,6 +142,7 @@ def get_std_fields_list(meta, key):
 
 def build_for_autosuggest(res):
     results = []
+
     for r in res:
         print(r)
         out = {"value": r[0], "description": ", ".join(unique(cstr(d) for d in r if d)[0:])}

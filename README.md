@@ -1,4 +1,4 @@
-## Title Links
+## Title Links (ERPNext version 12 support)
 
 In some cases, we need hide the standard name of a DocType in favor of another value in the doctype, 
 and get it simple to the end user.

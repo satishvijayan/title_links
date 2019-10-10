@@ -122,11 +122,9 @@ def search_widget(doctype, txt, query=None, searchfield=None, start=0,
             from frappe.model.db_query import get_order_by
             order_by_based_on_meta = get_order_by(doctype, meta)
             order_by = "if(_relevance, _relevance, 99999), idx desc, {0}".format(order_by_based_on_meta)
-
-            values = frappe.get_list(doctype, filters=filters, fields=fields, or_filters=or_filters,
-                                     limit_start=start, limit_page_length=page_len, order_by=order_by,
-                                     ignore_permissions=True if doctype == "DocType" else False,  # for dynamic links
-                                     as_list=not as_dict)
+            
+            # for dynamic links
+            values = frappe.get_list(doctype, filters=filters, fields=fields, or_filters=or_filters, limit_start=start, limit_page_length=page_len, order_by=order_by, ignore_permissions=True if doctype == "DocType" else False, as_list=not as_dict)
 
             # remove _relevance from results
             frappe.response["values"] = [r[:-1] for r in values]

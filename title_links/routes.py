@@ -108,14 +108,13 @@ def search_widget(doctype, txt, query=None, searchfield=None, start=0,
 
             if title_field:
                 fields.insert(0, "name")
-                frappe.msgprint("{0} as `title`".format(frappe.db.escape(title_field)))
-                fields.append("{0} as `title`".format(frappe.db.escape(title_field)))
+                fields.append("{0} as title".format(frappe.db.escape(title_field)))
             else:
-                fields.append("NULL as `title`")
+                fields.append("NULL as title")
 
             # find relevance as location of search term from the beginning of string
             # `name`. used for sorting results.
-            fields.append('locate("{0}", `tab{1}`.name) as "_relevance"'.format(frappe.db.escape((txt or "").replace("%", "")), frappe.db.escape(doctype)))
+            fields.append('locate("{0}", `tab{1}`.name) as _relevance'.format(frappe.db.escape((txt or "").replace("%", "")), frappe.db.escape(doctype)))
 
             # In order_by, `idx` gets second priority, because it stores link count
             from frappe.model.db_query import get_order_by

@@ -114,7 +114,7 @@ def search_widget(doctype, txt, query=None, searchfield=None, start=0,
 
             # find relevance as location of search term from the beginning of string
             # `name`. used for sorting results.
-            fields.append('locate("{0}", "tab{1}".name) as "_relevance"'.format(frappe.db.escape((txt or "").replace("%", "")), frappe.db.escape(doctype)))
+            fields.append('locate("{0}", `tab{1}`.name) as "_relevance"'.format(frappe.db.escape((txt or "").replace("%", "")), frappe.db.escape(doctype)))
 
             # In order_by, `idx` gets second priority, because it stores link count
             from frappe.model.db_query import get_order_by
@@ -137,7 +137,7 @@ def get_std_fields_list(meta, key):
     if key not in sflist:
         sflist = sflist + [key]
 
-    return ['"tab{0}".{1}'.format(meta.name, f.strip()) for f in sflist]
+    return ['`tab{0}`.{1}'.format(meta.name, f.strip()) for f in sflist]
 
 
 def build_for_autosuggest(res):

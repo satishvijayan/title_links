@@ -33,6 +33,11 @@ def search_title(doctype, name):
 def search_widget(doctype, txt, query=None, searchfield=None, start=0,
                   page_len=10, filters=None, as_dict=False):
 
+    try:
+        basestring
+    except NameError:
+        basestring = str
+
     if isinstance(filters, basestring):
         import json
         filters = json.loads(filters)

@@ -16,7 +16,7 @@ def search_link(doctype, txt, query=None, filters=None, page_len=20, searchfield
 
     search_widget(doctype, txt, query, searchfield=searchfield, page_len=page_len, filters=filters)
     frappe.response['results'] = build_for_autosuggest(frappe.response['values'])
-    print frappe.response['results']
+    print(frappe.response['results'])
     del frappe.response['values']
 
 

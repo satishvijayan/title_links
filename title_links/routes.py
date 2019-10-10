@@ -139,7 +139,7 @@ def get_std_fields_list(meta, key):
     if key not in sflist:
         sflist = sflist + [key]
 
-    return ['"tab{0}"."{1}"'.format(meta.name, f.strip()) for f in sflist]
+    return ['"tab{0}".{1}'.format(meta.name, f.strip()) for f in sflist]
 
 
 def build_for_autosuggest(res):

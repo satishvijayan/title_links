@@ -14,6 +14,7 @@ def is_valid_doctype(doctype):
 @frappe.whitelist()
 def search_link(doctype, txt, query=None, filters=None, page_len=20, searchfield=None):
 
+    frappe.msgprint(searchfield)
     search_widget(doctype, txt, query, searchfield=searchfield, page_len=page_len, filters=filters)
     frappe.response['results'] = build_for_autosuggest(frappe.response['values'])
     print(frappe.response['results'])

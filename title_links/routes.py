@@ -77,7 +77,7 @@ def search_widget(doctype, txt, query=None, searchfield=None, start=0,
             else:
                 title_field = None
 
-            print "title_field = {0}".format(title_field)
+            print("title_field = {0}".format(title_field))
             # build from doctype
             if txt:
                 search_fields = ["name"]
@@ -141,7 +141,7 @@ def get_std_fields_list(meta, key):
 def build_for_autosuggest(res):
     results = []
     for r in res:
-        print r
+        print(r)
         out = {"value": r[0], "description": ", ".join(unique(cstr(d) for d in r if d)[0:])}
         results.append(out)
 

@@ -3,6 +3,8 @@
 ### Note
 I added allowed routes functions so that this Link field formatter only works on desired routes and not breaking other Link fields on some routes. Because somehow this formatter doesn't worked on reference_doctype field at 'Data Export'. You can add your preffered routes at title_links/title_links/public/js/title_links.js just add or remove the routes on line 2.
 
+##
+
 In some cases, we need hide the standard name of a DocType in favor of another value in the doctype, 
 and get it simple to the end user.
 

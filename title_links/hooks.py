@@ -109,6 +109,6 @@ app_include_js = [
 # Overriding Whitelisted Methods
 # ------------------------------
 #
-override_whitelisted_methods = {
-    "frappe.desk.search.search_link": "title_links.routes.search_link"
-}
+# override_whitelisted_methods = {
+#     "frappe.desk.search.search_link": "title_links.routes.search_link"
+# }

@@ -466,25 +466,57 @@ const checkRoute = () => {
 	let routeFound = false;
 	const currentRoute = frappe.get_route(); // returns array ex: ["Form", "Address", "New Address 1"]
 	doctypeWithLinkFieldsToFormat.forEach(doctype => {
-		if (currentRoute.includes(doctype)) {
+		if (currentRoute.includes(doctype.name)) {
 			routeFound = true;
 		}
 	});
 	return routeFound;
 };
 
-const doctypeWithLinkFieldsToFormat = ["Address"];
+let doctypeWithLinkFieldsToFormat = [];
 let isLinksHasBeenFormated = false;
 
 window.onload = () => {
-	if (!isLinksHasBeenFormated && checkRoute()) {
-		isLinksHasBeenFormated = true;
-		formatLinks();
-	}
+	frappe.call({
+		method: 'frappe.client.get_list',
+		args: {
+			'doctype': 'Title Link Fields Formatter Setup',
+			'fieldname': ['doctype_name']
+		},
+		callback: function(response) {
+			if (!response.exc) {
+				doctypeWithLinkFieldsToFormat = response.message;
+				if (!isLinksHasBeenFormated && checkRoute()) {
+					isLinksHasBeenFormated = true;
+					formatLinks();
+				}
+			}
+		}
+	});
 };
 
 frappe.route.on('change', () => {
 	if ((isLinksHasBeenFormated && !checkRoute()) || (!isLinksHasBeenFormated && checkRoute())) {
+		location.reload();
+	}
+});
+
+frappe.ui.form.on('Title Link Fields Formatter Setup', {
+	after_save(frm) {
+		frappe.call({
+			method: 'frappe.client.get_list',
+			args: {
+				'doctype': 'Title Link Fields Formatter Setup',
+				'fieldname': ['doctype_name']
+			},
+			callback: function(response) {
+				if (!response.exc) {
+					doctypeWithLinkFieldsToFormat = response.message;
+				}
+			}
+		});
+	},
+	on_trash(frm) {
 		location.reload();
 	}
 });

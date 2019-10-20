@@ -495,8 +495,49 @@ window.onload = () => {
 	});
 };
 
+const addPageMessage = (title, content) => {
+	const mainSection = document.getElementsByClassName("main-section")[0];
+		let blocker = document.createElement("div");
+		blocker.style.background = "#000000d4";
+		blocker.style.width = "100%";
+		blocker.style.height = "100vh";
+		blocker.style.position = "absolute";
+		blocker.style.zIndex = 999;
+
+		let msgBox = document.createElement("div");
+		msgBox.style.background = "#fff";
+		msgBox.style.width = "300px";
+		msgBox.style.height = "100px";
+		msgBox.style.position = "absolute";
+		msgBox.style.top = "calc(50% - 100px)";
+		msgBox.style.left = "calc(50% - 150px)"
+		msgBox.style.zIndex = 1000;
+
+		let msgTitle = document.createElement("h3");
+		msgTitle.innerHTML = title;
+		msgTitle.style.margin = "10px";
+		msgTitle.style.marginBottom = 0;
+
+		const line = document.createElement("hr");
+		line.style.marginTop = 0;
+
+		let msgContent = document.createElement("p");
+		msgContent.innerHTML = content;
+		msgContent.style.margin = "10px";
+		msgContent.style.marginTop = 0;
+
+		msgBox.appendChild(msgTitle);
+		msgBox.appendChild(line);
+		msgBox.appendChild(msgContent);
+
+		blocker.appendChild(msgBox);
+		mainSection.parentNode.insertBefore(blocker, mainSection);
+		window.onscroll = () => { window.scrollTo(0, 0); };
+}
+
 frappe.route.on('change', () => {
 	if ((isLinksHasBeenFormated && !checkRoute()) || (!isLinksHasBeenFormated && checkRoute())) {
+		addPageMessage("Please wait", "Page reloading");
 		location.reload();
 	}
 });
@@ -517,6 +558,7 @@ frappe.ui.form.on('Title Link Fields Formatter Setup', {
 		});
 	},
 	on_trash(frm) {
+		addPageMessage("Please wait", "Page reloading");
 		location.reload();
 	}
 });

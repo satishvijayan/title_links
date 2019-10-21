@@ -465,13 +465,13 @@ const formatLinks = () => {
 const checkRoute = () => {
 	let routeFound = false;
 	const currentRoute = frappe.get_route(); // returns array ex: ["Form", "Address", "New Address 1"]
-	console.log(doctypeWithLinkFieldsToFormat);
-	console.log(frappe.get_route());
+
 	doctypeWithLinkFieldsToFormat.forEach(doctype => {
-		if (currentRoute.includes(doctype.name)) {
+		if (currentRoute[0] === "Form" && currentRoute[1] === doctype.name) {
 			routeFound = true;
 		}
 	});
+
 	return routeFound;
 };
 
@@ -479,7 +479,6 @@ let doctypeWithLinkFieldsToFormat = [];
 let isLinksHasBeenFormated = false;
 
 $(document).ready(() => {
-	console.log("Title links script --development mode");
 	frappe.call({
 		method: 'frappe.client.get_list',
 		args: {
@@ -536,6 +535,7 @@ const addPageMessage = (title, content) => {
 	blocker.appendChild(msgBox);
 	mainSection.parentNode.insertBefore(blocker, mainSection);
 	window.onscroll = () => { window.scrollTo(0, 0); };
+	document.body.scrollTop = document.documentElement.scrollTop = 0;
 }
 
 frappe.route.on('change', () => {
